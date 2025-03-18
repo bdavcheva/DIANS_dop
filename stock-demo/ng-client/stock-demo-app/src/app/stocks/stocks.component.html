@@ -1,0 +1,34 @@
+<div style="max-width: 75%; margin: auto; padding: 20px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); background: #fff; text-align: center;">
+  <h3 style="margin-bottom: 15px;">Live Stock Data</h3>
+  <p style="font-size: 14px; color: #555;">
+    Every selection from the dropdown fetches new data from
+    <a href="https://www.twelvedata.com" target="_blank" style="color: #007bff; text-decoration: none;">twelve.com</a> API.
+    Free accounts are limited to <b>8 requests/min</b>.
+  </p>
+
+  <div *ngIf="count > 0" style="margin-bottom: 15px;">
+    <p style="font-size: 14px; color: #333;">Requests remaining: <b>{{ count }}</b></p>
+
+    <form [formGroup]="form" style="display: flex; justify-content: center; align-items: center; gap: 10px;">
+      <label for="mySelect" style="font-weight: bold;">Select stock:</label>
+      <select id="mySelect" formControlName="selectedOption" style="padding: 5px; border-radius: 5px; border: 1px solid #ccc;">
+        <option *ngFor="let item of options" [value]="item">{{ item }}</option>
+      </select>
+    </form>
+  </div>
+
+  <p *ngIf="count == 0" style="color: red; font-weight: bold;">Please wait for the counter to refresh. No more requests available.</p>
+  <div  style="width: 100%; height: 95%; margin-top: 20px; position: relative;">
+    <h2>Stock Value Chart</h2>
+    <canvas id="stockChartCanvas"></canvas>
+  </div>
+  <div *ngIf="isLoading" class="spinner" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-weight: bold; color: #007bff;">
+  </div>
+
+  <div style="width: 100%; border: 1px solid lightgray"></div>
+  <div  style="width: 100%; height: 95%; margin-top: 20px; position: relative;">
+    <h2>Stock Volume Chart</h2>
+    <canvas id="volumeChart"></canvas>
+  </div>
+
+</div>
